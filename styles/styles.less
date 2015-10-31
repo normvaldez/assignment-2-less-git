@@ -1,11 +1,11 @@
 /*variables*/
 
 @foregroundColor: #F5F5F5;
-@backgroundColor: #173238;
+@backgroundColor: #BDBDBD;
 @sidebarColor: #EEEEEE;
-@linkColor: #F0AD44;
-@headerColor: #91AA9D;
-@headerBackgroundColor: #276066;
+@headerColor: #1f1f1f;
+@highlightColor: #92BFBF;
+@genMargin: 2%;
 
 /*general styling*/
 
@@ -19,41 +19,71 @@ a {
 	color: black;
 }
 
+body {
+	background-color: @backgroundColor;
+	font-family: 'Open Sans', sans-serif;
+}
+
+h4, h3, h2, h1 {
+	font-family: 'Droid Serif', serif;
+}
+
+h2, ul, h4, p, a {
+	margin: @genMargin;
+}
+
+h3 {
+	padding: 3px 0;
+	padding-left: @genMargin;
+}
+
+.drop-shadow {
+	box-shadow: 7px 2px 28px -10px gray;
+}
+
 /*header*/
 
 header {
+	max-width: 100%;
+	max-height: 40vw;
+	color: @highlightColor;
 	padding: 2%;
 	height: 200px;
-	background-color: @headerBackgroundColor;
-	background-image: url("images/headerBackground.png");
+	background-image: url("../images/headerBackground.jpg");
+	background-size: 1200px;
 	h2 {
 		font-size: 1.5em;
 		margin: 0;
 	}
+	.drop-shadow;
 }
 
 h1 {
-	font-size: 4em;
+	font-size: 3em;
 	margin-top: 20px;
 }
 
 /*navigation*/
 
 nav {
+	.drop-shadow;
 	padding: 0% 2%;
 	height: 80px;
 	background-color: @headerColor;
 	max-width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-between; /*places navigation and search bar at opposite ends*/
 	ul {
 		margin-left: -3%;
 	}
 	li {
 		font-family: 'Droid Serif', serif;
 		display: inline-block;
-		font-size: 1.5em;
+		font-size: 1.4em;
 		margin-right: 1em;
+			a {
+				color: @highlightColor;
+			}
 	}
 	form {
 		display: flex;
@@ -70,19 +100,15 @@ nav {
 	}
 }
 
-body {
-	background-color: @backgroundColor;
-	font-family: 'Open Sans', sans-serif;
-}
-
 /*side bar*/
 
 aside {
-	padding-right: 0%;
+	padding-bottom: 4%;
 	background-color: @sidebarColor;
 	width: 30%;
 	h3 {
 		background: @headerColor;
+		color: @highlightColor;;
 	}
 	section {
 		margin: 30px 0px;
@@ -90,12 +116,14 @@ aside {
 	p, a {
 		padding-left: 4%;
 	}
+	.drop-shadow;
 }
 
 /*main content*/
 
 .flexboxContainer {
 	display: flex; 
+	flex-direction: row-reverse; /*places aside to left of main content*/
 }
 
 .mainContainer {
@@ -104,33 +132,13 @@ aside {
 }
 
 main {
+	.drop-shadow;
 	background-color: @foregroundColor;
 	width: 70%;
 	padding: 0 2% 4% 2%;
 	h2 {
 		margin-top: 30px;
 	}
-}
-
-h3, h2, h1 {
-	font-family: 'Droid Serif', serif;
-}
-
-h2 {
-	margin: 2%;
-}
-
-h3 {
-	padding: 3px 0;
-	padding-left: 2%;
-}
-
-p, a {
-	margin: 2%;
-}
-
-ul {
-	margin: 2%;
 }
 
 /*home*/
@@ -142,14 +150,50 @@ img {
 
 iframe {
 	padding: 1%;
+	width: 97%; 
+	height: 380px;
+	border: none;
 }
 
 /*interaction*/
 
 a:hover {
-	color: @linkColor;
+	text-decoration: underline;
 }
 
 .searchButton:hover {
-	background-color: @linkColor;
+	background-color: @highlightColor;
+}
+
+/*responsive*/
+
+@media screen and (max-width: 830px){
+	nav {
+		justify-content: none;
+		flex-direction: column; /*places search bar below navigation*/
+		height: 90px;
+		text-align: center;
+	}
+	form {
+		display: flex;
+		justify-content: center;
+	}
+	.flexboxContainer {
+		display: block;
+	}
+	main {
+		width: 100%;
+		h2 {
+			padding-top: 20px;
+		}
+	}
+	aside {
+		width: 100%;
+	}
+
+}
+@media screen and (max-width: 560px){
+	img {
+		width: 100%;
+	}
 }
