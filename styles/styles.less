@@ -1,22 +1,19 @@
 /*variables*/
 
-@foregroundColor: #F5F5F5;
-@backgroundColor: #BDBDBD;
-@sidebarColor: #EEEEEE;
-@headerColor: #1f1f1f;
-@highlightColor: #92BFBF;
+@foregroundColor: #F5F5F5;   /*off white*/
+@backgroundColor: #BDBDBD;	/*gray*/
+@sidebarColor: #EEEEEE;  /*medium gray*/
+@headerColor: #1f1f1f;  /*dark gray*/
+@mainColor: #92BFBF;  /*light blue*/
+@secColor: #749898;  /*darker blue*/
 @genMargin: 2%;
 
 /*general styling*/
 
 * {
-	box-sizing: border-box;
+	box-sizing: border-box; /*set box model so elements' specified width and height aren't affected by padding or borders*/
 	margin: 0;
 	text-decoration: none;
-}
-
-a { 
-	color: black;
 }
 
 body {
@@ -24,8 +21,24 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-h4, h3, h2, h1 {
-	font-family: 'Droid Serif', serif;
+.display-flex {  /*assigns flex box properties*/
+	display: flex;
+}
+
+.header-font {
+	font-family: 'Muli', sans-serif;
+	letter-spacing: 1px;
+}
+
+a { 
+	color: #444;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+h4, h2 {
+	.header-font;
 }
 
 h2, ul, h4, p, a {
@@ -35,10 +48,12 @@ h2, ul, h4, p, a {
 h3 {
 	padding: 3px 0;
 	padding-left: @genMargin;
+	.header-font;
 }
 
-.drop-shadow {
-	box-shadow: 7px 2px 28px -10px gray;
+/*adds dropshadow with values x-offset. y-offset, blur and colour*/
+.drop-shadow (@offx:7px, @offy:0px, @blur:20px, @color:#888) {
+	box-shadow: @offx @offy	@blur @color;
 }
 
 /*header*/
@@ -46,69 +61,78 @@ h3 {
 header {
 	max-width: 100%;
 	max-height: 40vw;
-	color: @highlightColor;
+	color: @mainColor;
 	padding: 2%;
-	height: 200px;
 	background-image: url("../images/headerBackground.jpg");
 	background-size: 1200px;
 	h2 {
 		font-size: 1.5em;
 		margin: 0;
 	}
-	.drop-shadow;
+	.drop-shadow (3px, 7px, 10px, #888);
 }
 
 h1 {
-	font-size: 3em;
-	margin-top: 20px;
+	font-size: 2.7em;
+	.header-font;
 }
 
 /*navigation*/
 
 nav {
-	.drop-shadow;
+	.drop-shadow (3px, 7px, 10px, #888);
 	padding: 0% 2%;
 	height: 80px;
 	background-color: @headerColor;
 	max-width: 100%;
-	display: flex;
+	position: relative;  /*asigns position so z-index can bring footer in front of main and avoid being covered by dropshadow*/
+	z-index: 100;  
+	.display-flex;
 	justify-content: space-between; /*places navigation and search bar at opposite ends*/
 	ul {
 		margin-left: -3%;
+		display: flex;
+		align-items: center; /*vertically centers navigation*/
 	}
 	li {
-		font-family: 'Droid Serif', serif;
-		display: inline-block;
+		.header-font;
+		display: inline-block; /*removes bullet points and arranges navigation horizontally*/
 		font-size: 1.4em;
-		margin-right: 1em;
+		margin-right: 0.8em;
 			a {
-				color: @highlightColor;
+				color: @mainColor;
 			}
 	}
 	form {
-		display: flex;
-		align-items: center;
+		.display-flex;
+		align-items: center; /*vertically centers search bar*/
 		input {
-			border: 0px solid black;
+			border: 0px solid black; /*clears button styles*/
 			height: 36px;
 			width: 280px;
 		}
 		.searchButton {
+			.header-font;
+			background-color: @mainColor;
 			height: 36px;
 			width: 120px;
+			&:hover {
+				background-color: @secColor;
+			}
 		}
 	}
 }
 
-/*side bar*/
+/*aside*/
 
 aside {
 	padding-bottom: 4%;
 	background-color: @sidebarColor;
 	width: 30%;
+	.drop-shadow (1px, 0px, 05px, #ddd);
 	h3 {
 		background: @headerColor;
-		color: @highlightColor;;
+		color: @mainColor;;
 	}
 	section {
 		margin: 30px 0px;
@@ -116,13 +140,12 @@ aside {
 	p, a {
 		padding-left: 4%;
 	}
-	.drop-shadow;
 }
 
 /*main content*/
 
 .flexboxContainer {
-	display: flex; 
+	.display-flex;
 	flex-direction: row-reverse; /*places aside to left of main content*/
 }
 
@@ -132,7 +155,7 @@ aside {
 }
 
 main {
-	.drop-shadow;
+	.drop-shadow (1px, 7px, 15px, #999);
 	background-color: @foregroundColor;
 	width: 70%;
 	padding: 0 2% 4% 2%;
@@ -148,35 +171,44 @@ img {
 	margin: 1%;
 }
 
-iframe {
+iframe { /*styles for youtube video*/
 	padding: 1%;
 	width: 97%; 
 	height: 380px;
 	border: none;
 }
 
-/*interaction*/
+/*footer*/
 
-a:hover {
-	text-decoration: underline;
-}
-
-.searchButton:hover {
-	background-color: @highlightColor;
+footer {
+	position: relative; /*asigns position so z-index can bring footer in front of main and avoid being covered by dropshadow*/
+	z-index: 200;
+	.display-flex;
+	justify-content: flex-end; /*right aligns content*/
+	background-color: @headerColor;
+	color: @secColor;
+	height: 40px;	
+	.drop-shadow (1px, 0px, 15px, #999);
+	p {
+		padding: 10px 5px 0 0;
+		font-size: 12px;
+	}
 }
 
 /*responsive*/
 
 @media screen and (max-width: 830px){
 	nav {
-		justify-content: none;
+		justify-content: none;  /*removes property keeping nav and search bar at opposite ends*/
 		flex-direction: column; /*places search bar below navigation*/
 		height: 90px;
-		text-align: center;
+		ul {
+			margin-top: 10px;
+			justify-content: center; /*centers content horizontally*/
+		}
 	}
 	form {
-		display: flex;
-		justify-content: center;
+		justify-content: center; /*centers content horizontally*/
 	}
 	.flexboxContainer {
 		display: block;
@@ -190,10 +222,10 @@ a:hover {
 	aside {
 		width: 100%;
 	}
-
 }
+
 @media screen and (max-width: 560px){
 	img {
-		width: 100%;
+		width: 100%; /*images set to maximum with at mobile size */
 	}
 }
